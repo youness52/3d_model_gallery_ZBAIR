@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    {% for glb in glbs %}
+    <div onclick="Myfaction(this);">
+        <model-viewer id="hello" bounds="tight" src="{{ glb.model_glb }}" ar
+            ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" environment-image="neutral"
+            exposure="0.95"></model-viewer>
+    </div>
+    {% endfor %}
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <span class="close">×</span>
+        <model-viewer id="img01" class="modal-content2" bounds="tight" src="" ar
+            ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" environment-image="neutral"
+            exposure="0.95"></model-viewer>
+        <div class="slidecontainer" id="caption">
+            <input type="range" min="10" max="1000" value="300" class="slider" id="myRange">
+        </div>
+    </div>
+
+
+
+
+    <script>
+        var slider = document.getElementById("myRange");
+        var modal = document.getElementById('myModal');
+        var modalImg = document.getElementById("img01");
+        slider.oninput = function () {
+            modalImg.style.height = this.value + "px";
+            //console.log(this.value);
+        }
+
+        function Myfaction(imgs) {
+            modal.style.display = "block";
+            modalImg.src = imgs.children[0].src;
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
